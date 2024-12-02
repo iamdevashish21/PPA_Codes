@@ -1,0 +1,716 @@
+
+MariaDB [(none)]> use PPA51
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+MariaDB [PPA51]> describe student;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| Rno   | int(11)      | YES  |     | NULL    |       |
+| Name  | varchar(255) | YES  |     | NULL    |       |
+| Marks | int(11)      | YES  |     | NULL    |       |
+| City  | varchar(255) | YES  |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+4 rows in set (0.004 sec)
+
+MariaDB [PPA51]> insert into stdent values(11,'Devashish',91,'Latur');
+ERROR 1146 (42S02): Table 'ppa51.stdent' doesn't exist
+MariaDB [PPA51]> insert into student values(11,'Devashish',91,'Latur');
+Query OK, 1 row affected (0.014 sec)
+
+MariaDB [PPA51]> describe student;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| Rno   | int(11)      | YES  |     | NULL    |       |
+| Name  | varchar(255) | YES  |     | NULL    |       |
+| Marks | int(11)      | YES  |     | NULL    |       |
+| City  | varchar(255) | YES  |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+4 rows in set (0.004 sec)
+
+MariaDB [PPA51]> insert into student values(12,'Pooja',69,'Mumbai');
+Query OK, 1 row affected (0.002 sec)
+
+MariaDB [PPA51]> insert into student values(13,'Devendra',95,'Satara');
+Query OK, 1 row affected (0.001 sec)
+
+MariaDB [PPA51]> insert into student values(14,'Riya',88,'Nasik');
+Query OK, 1 row affected (0.001 sec)
+
+MariaDB [PPA51]> insert into student values(15,'Amit',76,'Pune');
+Query OK, 1 row affected (0.001 sec)
+
+MariaDB [PPA51]> select *student;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'student' at line 1
+MariaDB [PPA51]> show student;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'student' at line 1
+MariaDB [PPA51]> select *from student;
++------+-----------+-------+--------+
+| Rno  | Name      | Marks | City   |
++------+-----------+-------+--------+
+|   11 | Devashish |    91 | Latur  |
+|   12 | Pooja     |    69 | Mumbai |
+|   13 | Devendra  |    95 | Satara |
+|   14 | Riya      |    88 | Nasik  |
+|   15 | Amit      |    76 | Pune   |
++------+-----------+-------+--------+
+5 rows in set (0.004 sec)
+
+MariaDB [PPA51]> select Rno,City from student;
++------+--------+
+| Rno  | City   |
++------+--------+
+|   11 | Latur  |
+|   12 | Mumbai |
+|   13 | Satara |
+|   14 | Nasik  |
+|   15 | Pune   |
++------+--------+
+5 rows in set (0.002 sec)
+
+MariaDB [PPA51]> select *from student where city='latur';
++------+-----------+-------+-------+
+| Rno  | Name      | Marks | City  |
++------+-----------+-------+-------+
+|   11 | Devashish |    91 | Latur |
++------+-----------+-------+-------+
+1 row in set (0.004 sec)
+
+MariaDB [PPA51]> select name,marks from student where city='latur';
++-----------+-------+
+| name      | marks |
++-----------+-------+
+| Devashish |    91 |
++-----------+-------+
+1 row in set (0.001 sec)
+
+MariaDB [PPA51]> select *from student where marks>70;
++------+-----------+-------+--------+
+| Rno  | Name      | Marks | City   |
++------+-----------+-------+--------+
+|   11 | Devashish |    91 | Latur  |
+|   13 | Devendra  |    95 | Satara |
+|   14 | Riya      |    88 | Nasik  |
+|   15 | Amit      |    76 | Pune   |
++------+-----------+-------+--------+
+4 rows in set (0.003 sec)
+
+MariaDB [PPA51]> select *from student where marks>85;
++------+-----------+-------+--------+
+| Rno  | Name      | Marks | City   |
++------+-----------+-------+--------+
+|   11 | Devashish |    91 | Latur  |
+|   13 | Devendra  |    95 | Satara |
+|   14 | Riya      |    88 | Nasik  |
++------+-----------+-------+--------+
+3 rows in set (0.001 sec)
+
+MariaDB [PPA51]> select name,marks from student where city='Pune' and marks>90;
+Empty set (0.004 sec)
+
+MariaDB [PPA51]> select name,marks from student where city='Pune' and marks>80;
+Empty set (0.001 sec)
+
+MariaDB [PPA51]> select name,marks from student where city='Pune' and marks>70;
++------+-------+
+| name | marks |
++------+-------+
+| Amit |    76 |
++------+-------+
+1 row in set (0.001 sec)
+
+MariaDB [PPA51]> select *from student where city = 'pune' or city='Mumbai';
++------+-------+-------+--------+
+| Rno  | Name  | Marks | City   |
++------+-------+-------+--------+
+|   12 | Pooja |    69 | Mumbai |
+|   15 | Amit  |    76 | Pune   |
++------+-------+-------+--------+
+2 rows in set (0.002 sec)
+
+MariaDB [PPA51]> select * from student;
++------+-----------+-------+--------+
+| Rno  | Name      | Marks | City   |
++------+-----------+-------+--------+
+|   11 | Devashish |    91 | Latur  |
+|   12 | Pooja     |    69 | Mumbai |
+|   13 | Devendra  |    95 | Satara |
+|   14 | Riya      |    88 | Nasik  |
+|   15 | Amit      |    76 | Pune   |
++------+-----------+-------+--------+
+5 rows in set (0.002 sec)
+
+MariaDB [PPA51]> select * from student order by marks;
++------+-----------+-------+--------+
+| Rno  | Name      | Marks | City   |
++------+-----------+-------+--------+
+|   12 | Pooja     |    69 | Mumbai |
+|   15 | Amit      |    76 | Pune   |
+|   14 | Riya      |    88 | Nasik  |
+|   11 | Devashish |    91 | Latur  |
+|   13 | Devendra  |    95 | Satara |
++------+-----------+-------+--------+
+5 rows in set (0.003 sec)
+
+MariaDB [PPA51]> select * from student order by marks asc;
++------+-----------+-------+--------+
+| Rno  | Name      | Marks | City   |
++------+-----------+-------+--------+
+|   12 | Pooja     |    69 | Mumbai |
+|   15 | Amit      |    76 | Pune   |
+|   14 | Riya      |    88 | Nasik  |
+|   11 | Devashish |    91 | Latur  |
+|   13 | Devendra  |    95 | Satara |
++------+-----------+-------+--------+
+5 rows in set (0.002 sec)
+
+MariaDB [PPA51]> select * from student order by marks desc;
++------+-----------+-------+--------+
+| Rno  | Name      | Marks | City   |
++------+-----------+-------+--------+
+|   13 | Devendra  |    95 | Satara |
+|   11 | Devashish |    91 | Latur  |
+|   14 | Riya      |    88 | Nasik  |
+|   15 | Amit      |    76 | Pune   |
+|   12 | Pooja     |    69 | Mumbai |
++------+-----------+-------+--------+
+5 rows in set (0.002 sec)
+
+MariaDB [PPA51]> select * from student order by name;
++------+-----------+-------+--------+
+| Rno  | Name      | Marks | City   |
++------+-----------+-------+--------+
+|   15 | Amit      |    76 | Pune   |
+|   11 | Devashish |    91 | Latur  |
+|   13 | Devendra  |    95 | Satara |
+|   12 | Pooja     |    69 | Mumbai |
+|   14 | Riya      |    88 | Nasik  |
++------+-----------+-------+--------+
+5 rows in set (0.002 sec)
+
+MariaDB [PPA51]> select *from student;
++------+-----------+-------+--------+
+| Rno  | Name      | Marks | City   |
++------+-----------+-------+--------+
+|   11 | Devashish |    91 | Latur  |
+|   12 | Pooja     |    69 | Mumbai |
+|   13 | Devendra  |    95 | Satara |
+|   14 | Riya      |    88 | Nasik  |
+|   15 | Amit      |    76 | Pune   |
++------+-----------+-------+--------+
+5 rows in set (0.002 sec)
+
+MariaDB [PPA51]> update student set city='Kolhapur',where Rno=13;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'where Rno=13' at line 1
+MariaDB [PPA51]> select * from student order by marks desc
+    -> ;
++------+-----------+-------+--------+
+| Rno  | Name      | Marks | City   |
++------+-----------+-------+--------+
+|   13 | Devendra  |    95 | Satara |
+|   11 | Devashish |    91 | Latur  |
+|   14 | Riya      |    88 | Nasik  |
+|   15 | Amit      |    76 | Pune   |
+|   12 | Pooja     |    69 | Mumbai |
++------+-----------+-------+--------+
+5 rows in set (0.002 sec)
+
+MariaDB [PPA51]> update student set city='Kolhapur'where Rno=13;
+Query OK, 1 row affected (0.006 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [PPA51]> select * from student;
++------+-----------+-------+----------+
+| Rno  | Name      | Marks | City     |
++------+-----------+-------+----------+
+|   11 | Devashish |    91 | Latur    |
+|   12 | Pooja     |    69 | Mumbai   |
+|   13 | Devendra  |    95 | Kolhapur |
+|   14 | Riya      |    88 | Nasik    |
+|   15 | Amit      |    76 | Pune     |
++------+-----------+-------+----------+
+5 rows in set (0.001 sec)
+
+MariaDB [PPA51]> select * from student;
++------+-----------+-------+----------+
+| Rno  | Name      | Marks | City     |
++------+-----------+-------+----------+
+|   11 | Devashish |    91 | Latur    |
+|   12 | Pooja     |    69 | Mumbai   |
+|   13 | Devendra  |    95 | Kolhapur |
+|   14 | Riya      |    88 | Nasik    |
+|   15 | Amit      |    76 | Pune     |
++------+-----------+-------+----------+
+5 rows in set (0.001 sec)
+
+MariaDB [PPA51]> delete from student where rno=13;
+Query OK, 1 row affected (0.003 sec)
+
+MariaDB [PPA51]> select * from student;
++------+-----------+-------+--------+
+| Rno  | Name      | Marks | City   |
++------+-----------+-------+--------+
+|   11 | Devashish |    91 | Latur  |
+|   12 | Pooja     |    69 | Mumbai |
+|   14 | Riya      |    88 | Nasik  |
+|   15 | Amit      |    76 | Pune   |
++------+-----------+-------+--------+
+4 rows in set (0.001 sec)
+
+MariaDB [PPA51]> select count(name) from student;
++-------------+
+| count(name) |
++-------------+
+|           4 |
++-------------+
+1 row in set (0.004 sec)
+
+MariaDB [PPA51]> select avg(Marks) from student;
++------------+
+| avg(Marks) |
++------------+
+|    81.0000 |
++------------+
+1 row in set (0.003 sec)
+
+MariaDB [PPA51]> select count(marks) from student;
++--------------+
+| count(marks) |
++--------------+
+|            4 |
++--------------+
+1 row in set (0.001 sec)
+
+MariaDB [PPA51]> select count(city) from student where city='pune';
++-------------+
+| count(city) |
++-------------+
+|           1 |
++-------------+
+1 row in set (0.002 sec)
+
+MariaDB [PPA51]> select sum(marks) from student;
++------------+
+| sum(marks) |
++------------+
+|        324 |
++------------+
+1 row in set (0.002 sec)
+
+MariaDB [PPA51]> select avg(marks) from student;
++------------+
+| avg(marks) |
++------------+
+|    81.0000 |
++------------+
+1 row in set (0.001 sec)
+
+MariaDB [PPA51]> select min(marks) from student;
++------------+
+| min(marks) |
++------------+
+|         69 |
++------------+
+1 row in set (0.002 sec)
+
+MariaDB [PPA51]> select max(marks) from student;
++------------+
+| max(marks) |
++------------+
+|         91 |
++------------+
+1 row in set (0.001 sec)
+
+MariaDB [PPA51]> select min(marks) from student;
++------------+
+| min(marks) |
++------------+
+|         69 |
++------------+
+1 row in set (0.001 sec)
+
+MariaDB [PPA51]> select max(marks) from student;
++------------+
+| max(marks) |
++------------+
+|         91 |
++------------+
+1 row in set (0.001 sec)
+
+MariaDB [PPA51]> select*from student;
++------+-----------+-------+--------+
+| Rno  | Name      | Marks | City   |
++------+-----------+-------+--------+
+|   11 | Devashish |    91 | Latur  |
+|   12 | Pooja     |    69 | Mumbai |
+|   14 | Riya      |    88 | Nasik  |
+|   15 | Amit      |    76 | Pune   |
++------+-----------+-------+--------+
+4 rows in set (0.002 sec)
+
+MariaDB [PPA51]> insert into stdent values(13,'Rahul',75,'Pune'
+    -> insert into stdent values(13,'Rahul',75,'Pune');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'insert into stdent values(13,'Rahul',75,'Pune')' at line 2
+MariaDB [PPA51]> insert into stdent values(13,'Rahul',75,'Pune');
+ERROR 1146 (42S02): Table 'ppa51.stdent' doesn't exist
+MariaDB [PPA51]> insert into sutdent values(13,'Rahul',75,'Pune');
+ERROR 1146 (42S02): Table 'ppa51.sutdent' doesn't exist
+MariaDB [PPA51]> insert into student values(13,'Rahul',75,'Pune');
+Query OK, 1 row affected (0.003 sec)
+
+MariaDB [PPA51]> select*from student;
++------+-----------+-------+--------+
+| Rno  | Name      | Marks | City   |
++------+-----------+-------+--------+
+|   11 | Devashish |    91 | Latur  |
+|   12 | Pooja     |    69 | Mumbai |
+|   14 | Riya      |    88 | Nasik  |
+|   15 | Amit      |    76 | Pune   |
+|   13 | Rahul     |    75 | Pune   |
++------+-----------+-------+--------+
+5 rows in set (0.001 sec)
+
+MariaDB [PPA51]> select name from student name like '_____';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'like '_____'' at line 1
+MariaDB [PPA51]> select Name from student name like '_____';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'like '_____'' at line 1
+MariaDB [PPA51]> select Name from student where name like '____';
++------+
+| Name |
++------+
+| Riya |
+| Amit |
++------+
+2 rows in set (0.003 sec)
+
+MariaDB [PPA51]> select Name from student where name like '_____';
++-------+
+| Name  |
++-------+
+| Pooja |
+| Rahul |
++-------+
+2 rows in set (0.001 sec)
+
+MariaDB [PPA51]> select Name from student where name like '______';
+Empty set (0.001 sec)
+
+MariaDB [PPA51]> select Name from student where name like '_______';
+Empty set (0.001 sec)
+
+MariaDB [PPA51]> select Name from student where name like '________';
+Empty set (0.001 sec)
+
+MariaDB [PPA51]> select Name from student where name like '_________';
++-----------+
+| Name      |
++-----------+
+| Devashish |
++-----------+
+1 row in set (0.001 sec)
+
+MariaDB [PPA51]> select * from student;
++------+-----------+-------+--------+
+| Rno  | Name      | Marks | City   |
++------+-----------+-------+--------+
+|   11 | Devashish |    91 | Latur  |
+|   12 | Pooja     |    69 | Mumbai |
+|   14 | Riya      |    88 | Nasik  |
+|   15 | Amit      |    76 | Pune   |
+|   13 | Rahul     |    75 | Pune   |
++------+-----------+-------+--------+
+5 rows in set (0.001 sec)
+
+MariaDB [PPA51]> select Name from student where name like R%;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1
+MariaDB [PPA51]> select Name from student where name like 'r%';
++-------+
+| Name  |
++-------+
+| Riya  |
+| Rahul |
++-------+
+2 rows in set (0.001 sec)
+
+MariaDB [PPA51]> select Name from student where name like 'r%a';
++------+
+| Name |
++------+
+| Riya |
++------+
+1 row in set (0.001 sec)
+
+MariaDB [PPA51]> select name from student wher city in ('Pune','Mumbai','Satara');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'city in ('Pune','Mumbai','Satara')' at line 1
+MariaDB [PPA51]> select name from student where city in ('Pune','Mumbai','Satara');
++-------+
+| name  |
++-------+
+| Pooja |
+| Amit  |
+| Rahul |
++-------+
+3 rows in set (0.006 sec)
+
+MariaDB [PPA51]> select name from student where city+='Pune';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '='Pune'' at line 1
+MariaDB [PPA51]> select name from student where city='Pune';
++-------+
+| name  |
++-------+
+| Amit  |
+| Rahul |
++-------+
+2 rows in set (0.001 sec)
+
+MariaDB [PPA51]> select name from student where city='Pune' or city='mumbai'or city='satara';
++-------+
+| name  |
++-------+
+| Pooja |
+| Amit  |
+| Rahul |
++-------+
+3 rows in set (0.002 sec)
+
+MariaDB [PPA51]> select name from student where marks between 50 and 80;
++-------+
+| name  |
++-------+
+| Pooja |
+| Amit  |
+| Rahul |
++-------+
+3 rows in set (0.003 sec)
+
+MariaDB [PPA51]> select name from student where marks> 50 or marks> 80;
++-----------+
+| name      |
++-----------+
+| Devashish |
+| Pooja     |
+| Riya      |
+| Amit      |
+| Rahul     |
++-----------+
+5 rows in set (0.001 sec)
+
+MariaDB [PPA51]> select name from student where marks<50 or marks< 80;
++-------+
+| name  |
++-------+
+| Pooja |
+| Amit  |
+| Rahul |
++-------+
+3 rows in set (0.002 sec)
+
+MariaDB [PPA51]> select *from student;
++------+-----------+-------+--------+
+| Rno  | Name      | Marks | City   |
++------+-----------+-------+--------+
+|   11 | Devashish |    91 | Latur  |
+|   12 | Pooja     |    69 | Mumbai |
+|   14 | Riya      |    88 | Nasik  |
+|   15 | Amit      |    76 | Pune   |
+|   13 | Rahul     |    75 | Pune   |
++------+-----------+-------+--------+
+5 rows in set (0.001 sec)
+
+MariaDB [PPA51]> select count(Rno) from student;
++------------+
+| count(Rno) |
++------------+
+|          5 |
++------------+
+1 row in set (0.002 sec)
+
+MariaDB [PPA51]> select count(Rno) from student group by city;
++------------+
+| count(Rno) |
++------------+
+|          1 |
+|          1 |
+|          1 |
+|          2 |
++------------+
+4 rows in set (0.004 sec)
+
+MariaDB [PPA51]> select count(Rno),city from student group by city;
++------------+--------+
+| count(Rno) | city   |
++------------+--------+
+|          1 | Latur  |
+|          1 | Mumbai |
+|          1 | Nasik  |
+|          2 | Pune   |
++------------+--------+
+4 rows in set (0.001 sec)
+
+MariaDB [PPA51]> select sum(Rno),city from student group by city;
++----------+--------+
+| sum(Rno) | city   |
++----------+--------+
+|       11 | Latur  |
+|       12 | Mumbai |
+|       14 | Nasik  |
+|       28 | Pune   |
++----------+--------+
+4 rows in set (0.003 sec)
+
+MariaDB [PPA51]> select sum(marks),city from student group by city;
++------------+--------+
+| sum(marks) | city   |
++------------+--------+
+|         91 | Latur  |
+|         69 | Mumbai |
+|         88 | Nasik  |
+|        151 | Pune   |
++------------+--------+
+4 rows in set (0.001 sec)
+
+MariaDB [PPA51]> select max(marks),city from student group by city;
++------------+--------+
+| max(marks) | city   |
++------------+--------+
+|         91 | Latur  |
+|         69 | Mumbai |
+|         88 | Nasik  |
+|         76 | Pune   |
++------------+--------+
+4 rows in set (0.003 sec)
+
+MariaDB [PPA51]> select *from student;
++------+-----------+-------+--------+
+| Rno  | Name      | Marks | City   |
++------+-----------+-------+--------+
+|   11 | Devashish |    91 | Latur  |
+|   12 | Pooja     |    69 | Mumbai |
+|   14 | Riya      |    88 | Nasik  |
+|   15 | Amit      |    76 | Pune   |
+|   13 | Rahul     |    75 | Pune   |
++------+-----------+-------+--------+
+5 rows in set (0.001 sec)
+
+MariaDB [PPA51]> create table employee(EID int primary key,name varchar(255) unique,city varchar(255) not null,age int ,nationality varchar default 'pune');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'default 'pune')' at line 1
+MariaDB [PPA51]> create table employee(EID int primary key,name varchar(255) unique,city varchar(255) not null,age int ,nationality varchar(255) default 'pune');
+Query OK, 0 rows affected (0.024 sec)
+
+MariaDB [PPA51]> employee describe;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'employee describe' at line 1
+MariaDB [PPA51]> describe employee;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| EID         | int(11)      | NO   | PRI | NULL    |       |
+| name        | varchar(255) | YES  | UNI | NULL    |       |
+| city        | varchar(255) | NO   |     | NULL    |       |
+| age         | int(11)      | YES  |     | NULL    |       |
+| nationality | varchar(255) | YES  |     | pune    |       |
++-------------+--------------+------+-----+---------+-------+
+5 rows in set (0.008 sec)
+
+MariaDB [PPA51]> inser into employee values
+    -> (1,'Devashish','Pune',22);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'inser into employee values
+(1,'Devashish','Pune',22)' at line 1
+MariaDB [PPA51]> inser into employee values (1,'Devashish','Pune',22);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'inser into employee values (1,'Devashish','Pune',22)' at line 1
+MariaDB [PPA51]> describe student;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| Rno   | int(11)      | YES  |     | NULL    |       |
+| Name  | varchar(255) | YES  |     | NULL    |       |
+| Marks | int(11)      | YES  |     | NULL    |       |
+| City  | varchar(255) | YES  |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+4 rows in set (0.008 sec)
+
+MariaDB [PPA51]> alter table student add age int;
+Query OK, 0 rows affected (0.024 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [PPA51]> describe student;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| Rno   | int(11)      | YES  |     | NULL    |       |
+| Name  | varchar(255) | YES  |     | NULL    |       |
+| Marks | int(11)      | YES  |     | NULL    |       |
+| City  | varchar(255) | YES  |     | NULL    |       |
+| age   | int(11)      | YES  |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+5 rows in set (0.005 sec)
+
+MariaDB [PPA51]> select *from 
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1
+MariaDB [PPA51]> select *from student;
++------+-----------+-------+--------+------+
+| Rno  | Name      | Marks | City   | age  |
++------+-----------+-------+--------+------+
+|   11 | Devashish |    91 | Latur  | NULL |
+|   12 | Pooja     |    69 | Mumbai | NULL |
+|   14 | Riya      |    88 | Nasik  | NULL |
+|   15 | Amit      |    76 | Pune   | NULL |
+|   13 | Rahul     |    75 | Pune   | NULL |
++------+-----------+-------+--------+------+
+5 rows in set (0.001 sec)
+
+MariaDB [PPA51]> alter table student drop  age;
+Query OK, 0 rows affected (0.013 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [PPA51]> select *from student;
++------+-----------+-------+--------+
+| Rno  | Name      | Marks | City   |
++------+-----------+-------+--------+
+|   11 | Devashish |    91 | Latur  |
+|   12 | Pooja     |    69 | Mumbai |
+|   14 | Riya      |    88 | Nasik  |
+|   15 | Amit      |    76 | Pune   |
+|   13 | Rahul     |    75 | Pune   |
++------+-----------+-------+--------+
+5 rows in set (0.001 sec)
+
+MariaDB [PPA51]> select *from student;
++------+-----------+-------+--------+
+| Rno  | Name      | Marks | City   |
++------+-----------+-------+--------+
+|   11 | Devashish |    91 | Latur  |
+|   12 | Pooja     |    69 | Mumbai |
+|   14 | Riya      |    88 | Nasik  |
+|   15 | Amit      |    76 | Pune   |
+|   13 | Rahul     |    75 | Pune   |
++------+-----------+-------+--------+
+5 rows in set (0.001 sec)
+
+MariaDB [PPA51]> describe student;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| Rno   | int(11)      | YES  |     | NULL    |       |
+| Name  | varchar(255) | YES  |     | NULL    |       |
+| Marks | int(11)      | YES  |     | NULL    |       |
+| City  | varchar(255) | YES  |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+4 rows in set (0.004 sec)
+
+MariaDB [PPA51]> drop student;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'student' at line 1
+MariaDB [PPA51]> drop table student;
+Query OK, 0 rows affected (0.009 sec)
+
+MariaDB [PPA51]> 
+
+
+
+
+
+
+
